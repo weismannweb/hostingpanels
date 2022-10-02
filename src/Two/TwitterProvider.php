@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
@@ -40,7 +40,7 @@ class TwitterProvider extends AbstractProvider
      */
     public function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://twitter.com/i/oauth2/authorize', $state);
+        return $this->buildAuthUrlFromBase('https://twitter.com/i/server2/authorize', $state);
     }
 
     /**
@@ -48,7 +48,7 @@ class TwitterProvider extends AbstractProvider
      */
     protected function getTokenUrl()
     {
-        return 'https://api.twitter.com/2/oauth2/token';
+        return 'https://api.twitter.com/2/server2/token';
     }
 
     /**

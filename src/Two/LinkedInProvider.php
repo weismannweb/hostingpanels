@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
@@ -26,7 +26,7 @@ class LinkedInProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://www.linkedin.com/oauth/v2/authorization', $state);
+        return $this->buildAuthUrlFromBase('https://www.linkedin.com/server/v2/authorization', $state);
     }
 
     /**
@@ -34,7 +34,7 @@ class LinkedInProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return 'https://www.linkedin.com/oauth/v2/accessToken';
+        return 'https://www.linkedin.com/server/v2/accessToken';
     }
 
     /**

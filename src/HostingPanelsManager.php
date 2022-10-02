@@ -1,22 +1,22 @@
 <?php
 
-namespace Laravel\Socialite;
+namespace Laravel\HostingPanels;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Manager;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Laravel\Socialite\One\TwitterProvider;
-use Laravel\Socialite\Two\BitbucketProvider;
-use Laravel\Socialite\Two\FacebookProvider;
-use Laravel\Socialite\Two\GithubProvider;
-use Laravel\Socialite\Two\GitlabProvider;
-use Laravel\Socialite\Two\GoogleProvider;
-use Laravel\Socialite\Two\LinkedInProvider;
-use Laravel\Socialite\Two\TwitterProvider as TwitterOAuth2Provider;
-use League\OAuth1\Client\Server\Twitter as TwitterServer;
+use Laravel\HostingPanels\One\TwitterProvider;
+use Laravel\HostingPanels\Two\BitbucketProvider;
+use Laravel\HostingPanels\Two\FacebookProvider;
+use Laravel\HostingPanels\Two\GithubProvider;
+use Laravel\HostingPanels\Two\GitlabProvider;
+use Laravel\HostingPanels\Two\GoogleProvider;
+use Laravel\HostingPanels\Two\LinkedInProvider;
+use Laravel\HostingPanels\Two\TwitterProvider as TwitterServer2Provider;
+use League\Server1\Client\Server\Twitter as TwitterServer;
 
-class SocialiteManager extends Manager implements Contracts\Factory
+class HostingPanelsManager extends Manager implements Contracts\Factory
 {
     /**
      * Get a driver instance.
@@ -32,7 +32,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return \Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\Two\AbstractProvider
      */
     protected function createGithubDriver()
     {
@@ -46,7 +46,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return \Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\Two\AbstractProvider
      */
     protected function createFacebookDriver()
     {
@@ -60,7 +60,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return \Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\Two\AbstractProvider
      */
     protected function createGoogleDriver()
     {
@@ -74,7 +74,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return \Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\Two\AbstractProvider
      */
     protected function createLinkedinDriver()
     {
@@ -88,7 +88,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return \Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\Two\AbstractProvider
      */
     protected function createBitbucketDriver()
     {
@@ -102,7 +102,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return \Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\Two\AbstractProvider
      */
     protected function createGitlabDriver()
     {
@@ -116,14 +116,14 @@ class SocialiteManager extends Manager implements Contracts\Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return \Laravel\Socialite\One\AbstractProvider|\Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\One\AbstractProvider|\Laravel\HostingPanels\Two\AbstractProvider
      */
     protected function createTwitterDriver()
     {
         $config = $this->config->get('services.twitter');
 
-        if (($config['oauth'] ?? null) === 2) {
-            return $this->createTwitterOAuth2Driver();
+        if (($config['server'] ?? null) === 2) {
+            return $this->createTwitterServer2Driver();
         }
 
         return new TwitterProvider(
@@ -134,23 +134,23 @@ class SocialiteManager extends Manager implements Contracts\Factory
     /**
      * Create an instance of the specified driver.
      *
-     * @return \Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\Two\AbstractProvider
      */
-    protected function createTwitterOAuth2Driver()
+    protected function createTwitterServer2Driver()
     {
-        $config = $this->config->get('services.twitter') ?? $this->config->get('services.twitter-oauth-2');
+        $config = $this->config->get('services.twitter') ?? $this->config->get('services.twitter-server-2');
 
         return $this->buildProvider(
-            TwitterOAuth2Provider::class, $config
+            TwitterServer2Provider::class, $config
         );
     }
 
     /**
-     * Build an OAuth 2 provider instance.
+     * Build an Server 2 provider instance.
      *
      * @param  string  $provider
      * @param  array  $config
-     * @return \Laravel\Socialite\Two\AbstractProvider
+     * @return \Laravel\HostingPanels\Two\AbstractProvider
      */
     public function buildProvider($provider, $config)
     {
@@ -226,6 +226,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
      */
     public function getDefaultDriver()
     {
-        throw new InvalidArgumentException('No Socialite driver was specified.');
+        throw new InvalidArgumentException('No HostingPanels driver was specified.');
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Socialite;
+namespace Laravel\HostingPanels;
 
 use ArrayAccess;
-use Laravel\Socialite\Contracts\User;
+use Laravel\HostingPanels\Contracts\User;
 
 abstract class AbstractUser implements ArrayAccess, User
 {

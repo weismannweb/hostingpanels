@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\One;
+namespace Laravel\HostingPanels\One;
 
 class TwitterProvider extends AbstractProvider
 {
@@ -10,7 +10,7 @@ class TwitterProvider extends AbstractProvider
     public function user()
     {
         if (! $this->hasNecessaryVerifier()) {
-            throw new MissingVerifierException('Invalid request. Missing OAuth verifier.');
+            throw new MissingVerifierException('Invalid request. Missing Server verifier.');
         }
 
         $user = $this->server->getUserDetails($token = $this->getToken(), $this->shouldBypassCache($token->getIdentifier(), $token->getSecret()));

@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Laravel\Socialite\Contracts\Provider as ProviderContract;
+use Laravel\HostingPanels\Contracts\Provider as ProviderContract;
 
 abstract class AbstractProvider implements ProviderContract
 {
@@ -99,7 +99,7 @@ abstract class AbstractProvider implements ProviderContract
     /**
      * The cached user instance.
      *
-     * @var \Laravel\Socialite\Two\User|null
+     * @var \Laravel\HostingPanels\Two\User|null
      */
     protected $user;
 
@@ -146,10 +146,10 @@ abstract class AbstractProvider implements ProviderContract
     abstract protected function getUserByToken($token);
 
     /**
-     * Map the raw user array to a Socialite User instance.
+     * Map the raw user array to a HostingPanels User instance.
      *
      * @param  array  $user
-     * @return \Laravel\Socialite\Two\User
+     * @return \Laravel\HostingPanels\Two\User
      */
     abstract protected function mapUserToObject(array $user);
 
@@ -253,7 +253,7 @@ abstract class AbstractProvider implements ProviderContract
      * Get a Social User instance from a known access token.
      *
      * @param  string  $token
-     * @return \Laravel\Socialite\Two\User
+     * @return \Laravel\HostingPanels\Two\User
      */
     public function userFromToken($token)
     {

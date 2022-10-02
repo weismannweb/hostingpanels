@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Socialite\One;
+namespace Laravel\HostingPanels\One;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Contracts\Provider as ProviderContract;
-use League\OAuth1\Client\Credentials\TokenCredentials;
-use League\OAuth1\Client\Server\Server;
+use Laravel\HostingPanels\Contracts\Provider as ProviderContract;
+use League\Server1\Client\Credentials\TokenCredentials;
+use League\Server1\Client\Server\Server;
 
 abstract class AbstractProvider implements ProviderContract
 {
@@ -18,9 +18,9 @@ abstract class AbstractProvider implements ProviderContract
     protected $request;
 
     /**
-     * The OAuth server implementation.
+     * The Server server implementation.
      *
-     * @var \League\OAuth1\Client\Server\Server
+     * @var \League\Server1\Client\Server\Server
      */
     protected $server;
 
@@ -35,7 +35,7 @@ abstract class AbstractProvider implements ProviderContract
      * Create a new provider instance.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \League\OAuth1\Client\Server\Server  $server
+     * @param  \League\Server1\Client\Server\Server  $server
      * @return void
      */
     public function __construct(Request $request, Server $server)
@@ -52,7 +52,7 @@ abstract class AbstractProvider implements ProviderContract
     public function redirect()
     {
         $this->request->session()->put(
-            'oauth.temp', $temp = $this->server->getTemporaryCredentials()
+            'server.temp', $temp = $this->server->getTemporaryCredentials()
         );
 
         return new RedirectResponse($this->server->getAuthorizationUrl($temp));
@@ -61,14 +61,14 @@ abstract class AbstractProvider implements ProviderContract
     /**
      * Get the User instance for the authenticated user.
      *
-     * @return \Laravel\Socialite\One\User
+     * @return \Laravel\HostingPanels\One\User
      *
-     * @throws \Laravel\Socialite\One\MissingVerifierException
+     * @throws \Laravel\HostingPanels\One\MissingVerifierException
      */
     public function user()
     {
         if (! $this->hasNecessaryVerifier()) {
-            throw new MissingVerifierException('Invalid request. Missing OAuth verifier.');
+            throw new MissingVerifierException('Invalid request. Missing Server verifier.');
         }
 
         $token = $this->getToken();
@@ -94,7 +94,7 @@ abstract class AbstractProvider implements ProviderContract
      *
      * @param  string  $token
      * @param  string  $secret
-     * @return \Laravel\Socialite\One\User
+     * @return \Laravel\HostingPanels\One\User
      */
     public function userFromTokenAndSecret($token, $secret)
     {
@@ -122,29 +122,29 @@ abstract class AbstractProvider implements ProviderContract
     /**
      * Get the token credentials for the request.
      *
-     * @return \League\OAuth1\Client\Credentials\TokenCredentials
+     * @return \League\Server1\Client\Credentials\TokenCredentials
      */
     protected function getToken()
     {
-        $temp = $this->request->session()->get('oauth.temp');
+        $temp = $this->request->session()->get('server.temp');
 
         if (! $temp) {
-            throw new MissingTemporaryCredentialsException('Missing temporary OAuth credentials.');
+            throw new MissingTemporaryCredentialsException('Missing temporary Server credentials.');
         }
 
         return $this->server->getTokenCredentials(
-            $temp, $this->request->get('oauth_token'), $this->request->get('oauth_verifier')
+            $temp, $this->request->get('server_token'), $this->request->get('server_verifier')
         );
     }
 
     /**
-     * Determine if the request has the necessary OAuth verifier.
+     * Determine if the request has the necessary Server verifier.
      *
      * @return bool
      */
     protected function hasNecessaryVerifier()
     {
-        return $this->request->has(['oauth_token', 'oauth_verifier']);
+        return $this->request->has(['server_token', 'server_verifier']);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
@@ -61,7 +61,7 @@ class FacebookProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://www.facebook.com/'.$this->version.'/dialog/oauth', $state);
+        return $this->buildAuthUrlFromBase('https://www.facebook.com/'.$this->version.'/dialog/server', $state);
     }
 
     /**
@@ -69,7 +69,7 @@ class FacebookProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return $this->graphUrl.'/'.$this->version.'/oauth/access_token';
+        return $this->graphUrl.'/'.$this->version.'/server/access_token';
     }
 
     /**

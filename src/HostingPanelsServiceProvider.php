@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Socialite;
+namespace Laravel\HostingPanels;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Socialite\Contracts\Factory;
+use Laravel\HostingPanels\Contracts\Factory;
 
-class SocialiteServiceProvider extends ServiceProvider implements DeferrableProvider
+class HostingPanelsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register the service provider.
@@ -16,7 +16,7 @@ class SocialiteServiceProvider extends ServiceProvider implements DeferrableProv
     public function register()
     {
         $this->app->singleton(Factory::class, function ($app) {
-            return new SocialiteManager($app);
+            return new HostingPanelsManager($app);
         });
     }
 

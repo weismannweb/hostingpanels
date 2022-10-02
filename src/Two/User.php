@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
-use Laravel\Socialite\AbstractUser;
+use Laravel\HostingPanels\AbstractUser;
 
 class User extends AbstractUser
 {

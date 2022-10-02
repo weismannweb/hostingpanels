@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use GuzzleHttp\RequestOptions;
 
@@ -47,7 +47,7 @@ class GitlabProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase($this->host.'/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase($this->host.'/server/authorize', $state);
     }
 
     /**
@@ -55,7 +55,7 @@ class GitlabProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return $this->host.'/oauth/token';
+        return $this->host.'/server/token';
     }
 
     /**

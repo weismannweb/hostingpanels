@@ -1,14 +1,14 @@
 <?php
 
-namespace Laravel\Socialite\Contracts;
+namespace Laravel\HostingPanels\Contracts;
 
 interface Factory
 {
     /**
-     * Get an OAuth provider implementation.
+     * Get an Server provider implementation.
      *
      * @param  string  $driver
-     * @return \Laravel\Socialite\Contracts\Provider
+     * @return \Laravel\HostingPanels\Contracts\Provider
      */
     public function driver($driver = null);
 }

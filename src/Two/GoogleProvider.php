@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
@@ -30,7 +30,7 @@ class GoogleProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://accounts.google.com/o/oauth2/auth', $state);
+        return $this->buildAuthUrlFromBase('https://accounts.google.com/o/server2/auth', $state);
     }
 
     /**
@@ -38,7 +38,7 @@ class GoogleProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return 'https://www.googleapis.com/oauth2/v4/token';
+        return 'https://www.googleapis.com/server2/v4/token';
     }
 
     /**
@@ -46,7 +46,7 @@ class GoogleProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get('https://www.googleapis.com/oauth2/v3/userinfo', [
+        $response = $this->getHttpClient()->get('https://www.googleapis.com/server2/v3/userinfo', [
             RequestOptions::QUERY => [
                 'prettyPrint' => 'false',
             ],

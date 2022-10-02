@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Socialite\Tests\Fixtures;
+namespace Laravel\HostingPanels\Tests\Fixtures;
 
-use Laravel\Socialite\Two\AbstractProvider;
-use Laravel\Socialite\Two\User;
+use Laravel\HostingPanels\Two\AbstractProvider;
+use Laravel\HostingPanels\Two\User;
 use Mockery as m;
 use stdClass;
 
-class OAuthTwoTestProviderStub extends AbstractProvider
+class ServerTwoTestProviderStub extends AbstractProvider
 {
     /**
      * @var \GuzzleHttp\Client|\Mockery\MockInterface

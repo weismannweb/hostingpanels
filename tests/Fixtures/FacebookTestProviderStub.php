@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Socialite\Tests\Fixtures;
+namespace Laravel\HostingPanels\Tests\Fixtures;
 
-use Laravel\Socialite\Two\FacebookProvider;
+use Laravel\HostingPanels\Two\FacebookProvider;
 use Mockery as m;
 use stdClass;
 

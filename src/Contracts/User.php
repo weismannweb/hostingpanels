@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Contracts;
+namespace Laravel\HostingPanels\Contracts;
 
 interface User
 {
