@@ -1,12 +1,12 @@
 {
-    "name": "laravel/hostingpanels",
+    "name": "weismannweb/hostingpanels",
     "description": "Laravel wrapper around OAuth 1 & OAuth 2 libraries.",
     "keywords": ["hosting control panels", "laravel", "cpanel", "plesk"],
     "license": "MIT",
     "homepage": "https://noneyet.com",
     "support": {
-        "issues": "https://github.com/laravel/hostingpanels/issues",
-        "source": "https://github.com/laravel/hostingpanels"
+        "issues": "https://github.com/weismannweb/hostingpanels/issues",
+        "source": "https://github.com/weismannweb/hostingpanels"
     },
     "authors": [
         {
@@ -34,19 +34,19 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Laravel\\HostingPanels\\Tests\\": "tests/"
+            "Weismannweb\\HostingPanels\\Tests\\": "tests/"
         }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "5.x-dev"
         },
-        "laravel": {
+        "weismannweb": {
             "providers": [
-                "Laravel\\HostingPanels\\HostingPanelsServiceProvider"
+                "Weismannweb\\HostingPanels\\HostingPanelsServiceProvider"
             ],
             "aliases": {
-                "HostingPanels": "Laravel\\HostingPanels\\Facades\\HostingPanels"
+                "HostingPanels": "Weismannweb\\HostingPanels\\Facades\\HostingPanels"
             }
         }
     },
@@ -54,5 +54,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable":  false
 }
