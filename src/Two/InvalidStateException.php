@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use InvalidArgumentException;
 

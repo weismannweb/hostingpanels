@@ -1,17 +1,17 @@
 {
-    "name": "laravel/socialite",
+    "name": "weismannweb/hostingpanels",
     "description": "Laravel wrapper around OAuth 1 & OAuth 2 libraries.",
-    "keywords": ["oauth", "laravel"],
+    "keywords": ["hosting control panels", "laravel", "cpanel", "plesk"],
     "license": "MIT",
-    "homepage": "https://laravel.com",
+    "homepage": "https://xxxx.com",
     "support": {
-        "issues": "https://github.com/laravel/socialite/issues",
-        "source": "https://github.com/laravel/socialite"
+        "issues": "https://github.com/xxxx/hostingpanels/issues",
+        "source": "https://github.com/xxxx/hostingpanels"
     },
     "authors": [
         {
-            "name": "Taylor Otwell",
-            "email": "taylor@laravel.com"
+            "name": "Henry Weismann",
+            "email": "henry@weismannweb.com"
         }
     ],
     "require": {
@@ -20,8 +20,7 @@
         "guzzlehttp/guzzle": "^6.0|^7.0",
         "illuminate/contracts": "^6.0|^7.0|^8.0|^9.0",
         "illuminate/http": "^6.0|^7.0|^8.0|^9.0",
-        "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
-        "league/oauth1-client": "^1.10.1"
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
@@ -30,24 +29,24 @@
     },
     "autoload": {
         "psr-4": {
-            "Laravel\\Socialite\\": "src/"
+            "Laravel\\HostingPanels\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laravel\\Socialite\\Tests\\": "tests/"
+            "Laravel\\HostingPanels\\Tests\\": "tests/"
         }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "5.x-dev"
         },
-        "laravel": {
+        "weismannweb": {
             "providers": [
-                "Laravel\\Socialite\\SocialiteServiceProvider"
+                "Laravel\\HostingPanels\\HostingPanelsServerProvider"
             ],
             "aliases": {
-                "Socialite": "Laravel\\Socialite\\Facades\\Socialite"
+                "HostingPanels": "Laravel\\HostingPanels\\Facades\\HostingPanels"
             }
         }
     },

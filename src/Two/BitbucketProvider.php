@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use Exception;
 use GuzzleHttp\RequestOptions;
@@ -27,7 +27,7 @@ class BitbucketProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://bitbucket.org/site/oauth2/authorize', $state);
+        return $this->buildAuthUrlFromBase('https://bitbucket.org/site/server2/authorize', $state);
     }
 
     /**
@@ -35,7 +35,7 @@ class BitbucketProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return 'https://bitbucket.org/site/oauth2/access_token';
+        return 'https://bitbucket.org/site/server2/access_token';
     }
 
     /**

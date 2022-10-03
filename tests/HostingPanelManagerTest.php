@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Socialite\Tests;
+namespace Laravel\HostingPanels\Tests;
 
-use Laravel\Socialite\Contracts\Factory;
-use Laravel\Socialite\SocialiteServiceProvider;
-use Laravel\Socialite\Two\GithubProvider;
+use Laravel\HostingPanels\Contracts\Factory;
+use Laravel\HostingPanels\HostingPanelsServiceProvider;
+use Laravel\HostingPanels\Two\GithubProvider;
 use Orchestra\Testbench\TestCase;
 
-class SocialiteManagerTest extends TestCase
+class HostingPanelsManagerTest extends TestCase
 {
     protected function getEnvironmentSetUp($app)
     {
@@ -20,7 +20,7 @@ class SocialiteManagerTest extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return [SocialiteServiceProvider::class];
+        return [HostingPanelsServiceProvider::class];
     }
 
     public function test_it_can_instantiate_the_github_driver()

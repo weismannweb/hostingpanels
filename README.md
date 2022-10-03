@@ -1,27 +1,24 @@
-<p align="center"><img src="/art/logo.svg" alt="Logo Laravel Socialite"></p>
+<p align="center"><img src="/art/logo.svg" alt="Logo Laravel HostingPanels"></p>
 
 <p align="center">
-<a href="https://github.com/laravel/socialite/actions"><img src="https://github.com/laravel/socialite/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/socialite"><img src="https://img.shields.io/packagist/dt/laravel/socialite" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/socialite"><img src="https://img.shields.io/packagist/v/laravel/socialite" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/socialite"><img src="https://img.shields.io/packagist/l/laravel/socialite" alt="License"></a>
+<a href="https://github.com/laravel/hostingpanels/actions"><img src="https://github.com/laravel/hostingpanels/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/hostingpanels"><img src="https://img.shields.io/packagist/dt/laravel/hostingpanels" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/hostingpanels"><img src="https://img.shields.io/packagist/v/laravel/hostingpanels" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/hostingpanels"><img src="https://img.shields.io/packagist/l/laravel/hostingpanels" alt="License"></a>
 </p>
 
 ## Introduction
 
-Laravel Socialite provides an expressive, fluent interface to OAuth authentication with Facebook, Twitter, Google, LinkedIn, GitHub, GitLab and Bitbucket. It handles almost all of the boilerplate social authentication code you are dreading writing.
+Laravel HostingPanels provides an expressive, fluent interface to Server automation with cpanel, solusvm, plesk and others. It handles almost all of the boilerplate api code you are dreading writing and puts all of them into a standardized format.
 
-**We are not accepting new adapters.**
-
-Adapters for other platforms are listed at the community driven [Socialite Providers](https://socialiteproviders.netlify.com/) website.
+**We are accepting new adapters.**
 
 ## Official Documentation
 
-Documentation for Socialite can be found on the [Laravel website](https://laravel.com/docs/socialite).
 
 ## Contributing
 
-Thank you for considering contributing to Socialite! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Thank you for considering contributing to HostingPanels! The contribution guide can be found at.
 
 ## Code of Conduct
 
@@ -29,8 +26,8 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 ## Security Vulnerabilities
 
-Please review [our security policy](https://github.com/laravel/socialite/security/policy) on how to report security vulnerabilities.
+Please review [our security policy](https://github.com/laravel/hostingpanels/security/policy) on how to report security vulnerabilities.
 
 ## License
 
-Laravel Socialite is open-sourced software licensed under the [MIT license](LICENSE.md).
+Laravel HostingPanels is open-sourced software licensed under the [MIT license](LICENSE.md).

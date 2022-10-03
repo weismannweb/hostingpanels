@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Socialite\Two;
+namespace Laravel\HostingPanels\Two;
 
 use Exception;
 use GuzzleHttp\RequestOptions;
@@ -20,7 +20,7 @@ class GithubProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://github.com/login/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase('https://github.com/login/server/authorize', $state);
     }
 
     /**
@@ -28,7 +28,7 @@ class GithubProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return 'https://github.com/login/oauth/access_token';
+        return 'https://github.com/login/server/access_token';
     }
 
     /**

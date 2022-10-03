@@ -1,184 +1,191 @@
 <?php
 
-namespace Laravel\Socialite\One;
+namespace WeismannWeb\HostingServices\One;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Contracts\Provider as ProviderContract;
-use League\OAuth1\Client\Credentials\TokenCredentials;
-use League\OAuth1\Client\Server\Server;
+use WeismannWeb\HostingServices\Contracts\Provider as ProviderContract;
+use League\Server1\Client\Credentials\TokenCredentials;
+use League\Server1\Client\Server\Server;
 
 abstract class AbstractProvider implements ProviderContract
-{
-    /**
-     * The HTTP request instance.
-     *
-     * @var \Illuminate\Http\Request
-     */
-    protected $request;
+   {
+    private $username   = NULL;
+    private $password   = NULL;
+    private $domain     = NULL;
+    private $ip         = NULL;
 
     /**
-     * The OAuth server implementation.
-     *
-     * @var \League\OAuth1\Client\Server\Server
+     * @var Server_Package
      */
-    protected $server;
+    private $package    = NULL;
 
     /**
-     * A hash representing the last requested user.
-     *
-     * @var string
+     * @var Server_Client
      */
-    protected $userHash;
-
-    /**
-     * Create a new provider instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \League\OAuth1\Client\Server\Server  $server
-     * @return void
-     */
-    public function __construct(Request $request, Server $server)
+    private $client     = NULL;
+    private $reseller   = NULL;
+    private $suspended  = NULL;
+    private $ns_1       = NULL;
+    private $ns_2       = NULL;
+    private $ns_3       = NULL;
+    private $ns_4       = NULL;
+    private $note       = NULL;
+    
+    public function setUsername($param)
     {
-        $this->server = $server;
-        $this->request = $request;
+        $this->username = $param;
+        return $this;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function setPassword($param)
+    {
+        $this->password = $param;
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setDomain($param)
+    {
+        $this->domain = $param;
+        return $this;
+    }
+
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    public function setIp($param)
+    {
+        $this->ip = $param;
+        return $this;
+    }
+
+    public function getIp()
+    {
+        return $this->ip;
     }
 
     /**
-     * Redirect the user to the authentication page for the provider.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function redirect()
-    {
-        $this->request->session()->put(
-            'oauth.temp', $temp = $this->server->getTemporaryCredentials()
-        );
-
-        return new RedirectResponse($this->server->getAuthorizationUrl($temp));
-    }
-
-    /**
-     * Get the User instance for the authenticated user.
-     *
-     * @return \Laravel\Socialite\One\User
-     *
-     * @throws \Laravel\Socialite\One\MissingVerifierException
-     */
-    public function user()
-    {
-        if (! $this->hasNecessaryVerifier()) {
-            throw new MissingVerifierException('Invalid request. Missing OAuth verifier.');
-        }
-
-        $token = $this->getToken();
-
-        $user = $this->server->getUserDetails(
-            $token, $this->shouldBypassCache($token->getIdentifier(), $token->getSecret())
-        );
-
-        $instance = (new User)->setRaw($user->extra)
-                ->setToken($token->getIdentifier(), $token->getSecret());
-
-        return $instance->map([
-            'id' => $user->uid,
-            'nickname' => $user->nickname,
-            'name' => $user->name,
-            'email' => $user->email,
-            'avatar' => $user->imageUrl,
-        ]);
-    }
-
-    /**
-     * Get a Social User instance from a known access token and secret.
-     *
-     * @param  string  $token
-     * @param  string  $secret
-     * @return \Laravel\Socialite\One\User
-     */
-    public function userFromTokenAndSecret($token, $secret)
-    {
-        $tokenCredentials = new TokenCredentials();
-
-        $tokenCredentials->setIdentifier($token);
-        $tokenCredentials->setSecret($secret);
-
-        $user = $this->server->getUserDetails(
-            $tokenCredentials, $this->shouldBypassCache($token, $secret)
-        );
-
-        $instance = (new User)->setRaw($user->extra)
-            ->setToken($tokenCredentials->getIdentifier(), $tokenCredentials->getSecret());
-
-        return $instance->map([
-            'id' => $user->uid,
-            'nickname' => $user->nickname,
-            'name' => $user->name,
-            'email' => $user->email,
-            'avatar' => $user->imageUrl,
-        ]);
-    }
-
-    /**
-     * Get the token credentials for the request.
-     *
-     * @return \League\OAuth1\Client\Credentials\TokenCredentials
-     */
-    protected function getToken()
-    {
-        $temp = $this->request->session()->get('oauth.temp');
-
-        if (! $temp) {
-            throw new MissingTemporaryCredentialsException('Missing temporary OAuth credentials.');
-        }
-
-        return $this->server->getTokenCredentials(
-            $temp, $this->request->get('oauth_token'), $this->request->get('oauth_verifier')
-        );
-    }
-
-    /**
-     * Determine if the request has the necessary OAuth verifier.
-     *
-     * @return bool
-     */
-    protected function hasNecessaryVerifier()
-    {
-        return $this->request->has(['oauth_token', 'oauth_verifier']);
-    }
-
-    /**
-     * Determine if the user information cache should be bypassed.
-     *
-     * @param  string  $token
-     * @param  string  $secret
-     * @return bool
-     */
-    protected function shouldBypassCache($token, $secret)
-    {
-        $newHash = sha1($token.'_'.$secret);
-
-        if (! empty($this->userHash) && $newHash !== $this->userHash) {
-            $this->userHash = $newHash;
-
-            return true;
-        }
-
-        $this->userHash = $this->userHash ?: $newHash;
-
-        return false;
-    }
-
-    /**
-     * Set the request instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Server_Client $param
      * @return $this
      */
-    public function setRequest(Request $request)
+    public function setClient(Server_Client $param)
     {
-        $this->request = $request;
-
+        $this->client = $param;
         return $this;
+    }
+
+    /**
+     * @return Server_Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param Server_Package $param
+     * @return $this
+     */
+    public function setPackage(Server_Package $param)
+    {
+        $this->package = $param;
+        return $this;
+    }
+
+    /**
+     * @return Server_package
+     */
+    public function getPackage()
+    {
+        return $this->package;
+    }
+
+    public function setNote($param)
+    {
+        $this->note = $param;
+        return $this;
+    }
+
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    public function setReseller($param)
+    {
+        $this->reseller = (bool)$param;
+        return $this;
+    }
+
+    public function getReseller()
+    {
+        return $this->reseller;
+    }
+
+    public function setSuspended($param)
+    {
+        $this->suspended = (bool)$param;
+        return $this;
+    }
+
+    public function getSuspended()
+    {
+        return $this->suspended;
+    }
+    
+    public function setNs1($param)
+    {
+        $this->ns_1 = $param;
+        return $this;
+    }
+
+    public function getNs1()
+    {
+        return $this->ns_1;
+    }
+    
+    public function setNs2($param)
+    {
+        $this->ns_2 = $param;
+        return $this;
+    }
+
+    public function getNs2()
+    {
+        return $this->ns_2;
+    }
+
+    public function setNs3($param)
+    {
+        $this->ns_3 = $param;
+        return $this;
+    }
+
+    public function getNs3()
+    {
+        return $this->ns_3;
+    }
+
+    public function setNs4($param)
+    {
+        $this->ns_4 = $param;
+        return $this;
+    }
+
+    public function getNs4()
+    {
+        return $this->ns_4;
     }
 }

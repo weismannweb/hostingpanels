@@ -1,62 +1,79 @@
 <?php
 
-namespace Laravel\Socialite;
+namespace WeismannWeb\HostingServices;
 
 use ArrayAccess;
-use Laravel\Socialite\Contracts\User;
+use Laravel\Services\Contracts\HostingService;
 
-abstract class AbstractUser implements ArrayAccess, User
+abstract class AbstractHostingServicesManager implements ArrayAccess, HostingService
 {
     /**
      * The unique identifier for the user.
      *
      * @var mixed
      */
-    public $id;
+    public $ip;
 
     /**
      * The user's nickname / username.
      *
      * @var string
      */
-    public $nickname;
+    public $host;
 
     /**
      * The user's full name.
      *
      * @var string
      */
-    public $name;
+    public $secure;
 
     /**
      * The user's e-mail address.
      *
      * @var string
      */
-    public $email;
+    public $username;
 
     /**
      * The user's avatar image URL.
      *
      * @var string
      */
-    public $avatar;
+    public $password;
 
     /**
      * The user's raw attributes.
      *
      * @var array
      */
-    public $user;
+    public $accesshash;
+
+    /**
+     * The user's raw attributes.
+     *
+     * @var array
+     */
+    public $port;
 
     /**
      * Get the unique identifier for the user.
      *
      * @return string
      */
-    public function getId()
+    public function getIp()
     {
-        return $this->id;
+        return $this->ip;
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
     }
 
     /**
@@ -64,9 +81,9 @@ abstract class AbstractUser implements ArrayAccess, User
      *
      * @return string
      */
-    public function getNickname()
+    public function getSecure()
     {
-        return $this->nickname;
+        return $this->secure;
     }
 
     /**
@@ -74,9 +91,9 @@ abstract class AbstractUser implements ArrayAccess, User
      *
      * @return string
      */
-    public function getName()
+    public function geUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
@@ -84,9 +101,9 @@ abstract class AbstractUser implements ArrayAccess, User
      *
      * @return string
      */
-    public function getEmail()
+    public function getPassword()
     {
-        return $this->email;
+        return $this->password;
     }
 
     /**
@@ -94,9 +111,9 @@ abstract class AbstractUser implements ArrayAccess, User
      *
      * @return string
      */
-    public function getAvatar()
+    public function getAccesshash()
     {
-        return $this->avatar;
+        return $this->accesshash;
     }
 
     /**
@@ -104,9 +121,9 @@ abstract class AbstractUser implements ArrayAccess, User
      *
      * @return array
      */
-    public function getRaw()
+    public function getPort()
     {
-        return $this->user;
+        return $this->port;
     }
 
     /**
@@ -123,7 +140,7 @@ abstract class AbstractUser implements ArrayAccess, User
     }
 
     /**
-     * Map the given array onto the user's properties.
+     * Map the given array onto the servers's properties.
      *
      * @param  array  $attributes
      * @return $this

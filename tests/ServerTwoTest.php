@@ -1,23 +1,23 @@
 <?php
 
-namespace Laravel\Socialite\Tests;
+namespace Laravel\HostingPanels\Tests;
 
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Laravel\Socialite\Tests\Fixtures\FacebookTestProviderStub;
-use Laravel\Socialite\Tests\Fixtures\OAuthTwoTestProviderStub;
-use Laravel\Socialite\Tests\Fixtures\OAuthTwoWithPKCETestProviderStub;
-use Laravel\Socialite\Two\InvalidStateException;
-use Laravel\Socialite\Two\User;
+use Laravel\HostingPanels\Tests\Fixtures\FacebookTestProviderStub;
+use Laravel\HostingPanels\Tests\Fixtures\ServerTwoTestProviderStub;
+use Laravel\HostingPanels\Tests\Fixtures\ServerTwoWithPKCETestProviderStub;
+use Laravel\HostingPanels\Two\InvalidStateException;
+use Laravel\HostingPanels\Two\User;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class OAuthTwoTest extends TestCase
+class ServerTwoTest extends TestCase
 {
     protected function tearDown(): void
     {
@@ -43,7 +43,7 @@ class OAuthTwoTest extends TestCase
         };
 
         $session->expects('put')->withArgs($closure);
-        $provider = new OAuthTwoTestProviderStub($request, 'client_id', 'client_secret', 'redirect');
+        $provider = new ServerTwoTestProviderStub($request, 'client_id', 'client_secret', 'redirect');
         $response = $provider->redirect();
 
         $this->assertInstanceOf(SymfonyRedirectResponse::class, $response);
@@ -82,7 +82,7 @@ class OAuthTwoTest extends TestCase
         $session->expects('put')->twice()->withArgs($sessionPutClosure);
         $session->expects('get')->with('code_verifier')->andReturnUsing($sessionPullClosure);
 
-        $provider = new OAuthTwoWithPKCETestProviderStub($request, 'client_id', 'client_secret', 'redirect');
+        $provider = new ServerTwoWithPKCETestProviderStub($request, 'client_id', 'client_secret', 'redirect');
         $response = $provider->redirect();
 
         $codeChallenge = rtrim(strtr(base64_encode(hash('sha256', self::$codeVerifier, true)), '+/', '-_'), '=');
@@ -99,7 +99,7 @@ class OAuthTwoTest extends TestCase
         $codeVerifier = Str::random(32);
         $session->expects('pull')->with('state')->andReturns(str_repeat('A', 40));
         $session->expects('pull')->with('code_verifier')->andReturns($codeVerifier);
-        $provider = new OAuthTwoWithPKCETestProviderStub($request, 'client_id', 'client_secret', 'redirect_uri');
+        $provider = new ServerTwoWithPKCETestProviderStub($request, 'client_id', 'client_secret', 'redirect_uri');
         $provider->http = m::mock(stdClass::class);
         $provider->http->expects('post')->with('http://token.url', [
             'headers' => ['Accept' => 'application/json'], 'form_params' => ['grant_type' => 'authorization_code', 'client_id' => 'client_id', 'client_secret' => 'client_secret', 'code' => 'code', 'redirect_uri' => 'redirect_uri', 'code_verifier' => $codeVerifier],
@@ -120,7 +120,7 @@ class OAuthTwoTest extends TestCase
         $request = Request::create('foo', 'GET', ['state' => str_repeat('A', 40), 'code' => 'code']);
         $request->setLaravelSession($session = m::mock(Session::class));
         $session->expects('pull')->with('state')->andReturns(str_repeat('A', 40));
-        $provider = new OAuthTwoTestProviderStub($request, 'client_id', 'client_secret', 'redirect_uri');
+        $provider = new ServerTwoTestProviderStub($request, 'client_id', 'client_secret', 'redirect_uri');
         $provider->http = m::mock(stdClass::class);
         $provider->http->expects('post')->with('http://token.url', [
             'headers' => ['Accept' => 'application/json'], 'form_params' => ['grant_type' => 'authorization_code', 'client_id' => 'client_id', 'client_secret' => 'client_secret', 'code' => 'code', 'redirect_uri' => 'redirect_uri'],
@@ -143,7 +143,7 @@ class OAuthTwoTest extends TestCase
         $session->expects('pull')->with('state')->andReturns(str_repeat('A', 40));
         $provider = new FacebookTestProviderStub($request, 'client_id', 'client_secret', 'redirect_uri');
         $provider->http = m::mock(stdClass::class);
-        $provider->http->expects('post')->with('https://graph.facebook.com/v3.3/oauth/access_token', [
+        $provider->http->expects('post')->with('https://graph.facebook.com/v3.3/server/access_token', [
             'form_params' => ['grant_type' => 'authorization_code', 'client_id' => 'client_id', 'client_secret' => 'client_secret', 'code' => 'code', 'redirect_uri' => 'redirect_uri'],
         ])->andReturns($response = m::mock(stdClass::class));
         $response->expects('getBody')->andReturns(json_encode(['access_token' => 'access_token', 'expires' => 5183085]));
@@ -164,7 +164,7 @@ class OAuthTwoTest extends TestCase
         $request = Request::create('foo', 'GET', ['state' => str_repeat('B', 40), 'code' => 'code']);
         $request->setLaravelSession($session = m::mock(Session::class));
         $session->expects('pull')->with('state')->andReturns(str_repeat('A', 40));
-        $provider = new OAuthTwoTestProviderStub($request, 'client_id', 'client_secret', 'redirect');
+        $provider = new ServerTwoTestProviderStub($request, 'client_id', 'client_secret', 'redirect');
         $provider->user();
     }
 
@@ -175,7 +175,7 @@ class OAuthTwoTest extends TestCase
         $request = Request::create('foo', 'GET', ['state' => 'state', 'code' => 'code']);
         $request->setLaravelSession($session = m::mock(Session::class));
         $session->expects('pull')->with('state');
-        $provider = new OAuthTwoTestProviderStub($request, 'client_id', 'client_secret', 'redirect');
+        $provider = new ServerTwoTestProviderStub($request, 'client_id', 'client_secret', 'redirect');
         $provider->user();
     }
 }
